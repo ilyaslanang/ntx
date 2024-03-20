@@ -1,4 +1,4 @@
-## Makes virtual Environment:
+## Membuat virtual Environment:
 
 `python -m venv .venv`
 
