@@ -23,11 +23,13 @@ fungsi ini untuk memasukkan database zicare_db_test.sql
 
 jalankan [data_read.py](./dataset/data_read.py)  
 
-ini akan menghasilkan dataset gabungan yang bernama [Kelompok OK](./dataset/Kelompok OK.xlsx)  
+`python data_read.py` 
+
+ini akan menghasilkan dataset gabungan yang bernama [Kelompok OK](./dataset/Kelompok%20OK.xlsx)  
 
 kemudian lanjut untuk [ekstrak data](./dataset/ekstrak.py)   
 
-`python read_data.py`  
+`python ekstrak.py`  
  
 ## Load Data  
 
@@ -36,4 +38,5 @@ pindah ke file [load_data](./load_data)
 `cd ../load_data`  
 
 jalankan [load.py](./load_data/load.py)  
+
 fungsi ini akan load data berdasarkan query yang telah dibuat
