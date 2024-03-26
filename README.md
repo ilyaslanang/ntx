@@ -39,4 +39,5 @@ pindah ke file [load_data](./load_data)
 
 jalankan [load.py](./load_data/load.py)  
 
+`python load.py`
 fungsi ini akan load data berdasarkan query yang telah dibuat
