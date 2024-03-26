@@ -1,22 +1,19 @@
-INSERT INTO 
-m_rate_component(procedure_component_id, procedure_id, kelas_id, component_type, component_name, doctor_id, doctor_name, since, until, meta_data, tags, hospital_id, created_date, created_by, created_by_name, modified_date, modified_by, modified_by_name)
-WITH component_all AS (
-  SELECT  * FROM component_rate_ok_umum
-  UNION ALL 
-  SELECT * FROM component_rate_ok_bpjs
-), mp_data AS (
+-- INSERT INTO 
+-- m_rate_component(procedure_component_id, procedure_id, kelas_id, component_type, component_name, doctor_id, doctor_name, since, until, meta_data, tags, hospital_id, created_date, created_by, created_by_name, modified_date, modified_by, modified_by_name)
+WITH mp_data AS (
 SELECT DISTINCT 
 sync_ref_id, procedure_type, mp.procedure_name, jns_tarif, group_payment , jns_pelayanan_name , for_pelayanan_name
-FROM component_all ca
+FROM component_rate_ok ca
 LEFT JOIN m_procedure mp ON mp.sync_ref_id = ca.procedure_id
 ), second_stage AS (
 SELECT DISTINCT 
-mp.procedure_id, mp_data.*, ca.component_name, ca.component_type
+mp.procedure_id, mp_data.*, ca.component_name, ca.component_type, ca.component_rate
 FROM
     mp_data
 LEFT JOIN m_procedure mp ON mp.sync_ref_id = mp_data.sync_ref_id
-LEFT JOIN component_all ca ON mp_data.sync_ref_id = ca.procedure_id
-), third_stage AS (
+LEFT JOIN component_rate_ok ca ON mp_data.sync_ref_id = ca.procedure_id
+)
+, third_stage AS (
 SELECT
 second_stage.*,
  	mm.model_id AS componenet_name,
@@ -35,6 +32,7 @@ SELECT
 	NULL AS kelas_id,
 	component_type,
 	component_name,
+	component_rate,
     NULL AS doctor_id, 
     NULL AS doctor_name, 
     NULL AS since, 
@@ -49,5 +47,3 @@ SELECT
     '6f7bc1e7629dce254cb333de9d4dd925' AS modified_by, 
     'admin' AS modified_by_name
 FROM third_stage;
-
-
